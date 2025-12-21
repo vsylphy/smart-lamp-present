@@ -551,16 +551,16 @@ export default function Home() {
                 Smart Team
               </button>
             </Link>
-            <a href="#catalog">
-              <button
-                className="px-8 py-3 rounded-full font-semibold
-      border border-cyan-400 text-cyan-400
-      hover:bg-cyan-400 hover:text-black
-      transition-all duration-300"
-              >
-                Learn More
-              </button>
-            </a>
+            <motion.a
+              href="/SMART-LAMP.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block border-2 border-cyan-400 text-cyan-400 font-semibold px-10 py-4 rounded-full hover:bg-cyan-400/10 transition"
+            >
+              Learn More
+            </motion.a>
           </div>
         </motion.div>
 
