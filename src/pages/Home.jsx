@@ -24,17 +24,20 @@ export default function Home() {
     []
   );
 
-  const sparkles = Array.from({ length: 12 }, (_, i) => ({
-    left: `${(i % 6) * 15 + 10}%`,
-    top: `${Math.floor(i / 6) * 30 + 20}%`,
-  }));
+  const sparkles = [
+    { left: "10%", top: "20%" },
+    { left: "85%", top: "15%" },
+    { left: "70%", top: "60%" },
+    { left: "20%", top: "75%" },
+    { left: "50%", top: "40%" },
+    { left: "90%", top: "80%" },
+  ];
 
   const [count, setCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [showWaModal, setShowWaModal] = useState(false); // ✅ WAJIB
 
-  // Typing Animation
   const phrases = [
     "Smart Lighting System",
     "Voice Control Ready",
@@ -547,7 +550,11 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/team">
-              <button className="px-8 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white">
+              <button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white"
+              >
                 Smart Team
               </button>
             </Link>
@@ -595,12 +602,48 @@ export default function Home() {
         {sparkles.map((s, i) => (
           <motion.div
             key={i}
-            className="absolute text-xl text-cyan-400"
-            style={{ left: s.left, top: s.top }}
-            animate={{ opacity: [0, 1, 0], scale: [0.8, 1.2, 0.8] }}
-            transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+            className="absolute w-1 h-1 rounded-full"
+            style={{
+              left: s.left,
+              top: s.top,
+              background:
+                "radial-gradient(circle, rgba(103, 232, 249, 0.6) 0%, rgba(103, 232, 249, 0) 70%)",
+              filter: "blur(0.5px)",
+            }}
+            animate={{
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 4 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.8,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+
+        {/* Floating glow particles - alternative style */}
+        {sparkles.slice(0, 3).map((s, i) => (
+          <motion.div
+            key={`glow-${i}`}
+            className="absolute"
+            style={{
+              left: s.left,
+              top: s.top,
+            }}
+            animate={{
+              y: [-10, 10, -10],
+              opacity: [0.1, 0.3, 0.1],
+            }}
+            transition={{
+              duration: 6 + i * 1,
+              repeat: Infinity,
+              delay: i * 1.2,
+              ease: "easeInOut",
+            }}
           >
-            ✨
+            <div className="w-2 h-2 rounded-full bg-cyan-400/20 blur-sm" />
           </motion.div>
         ))}
 
