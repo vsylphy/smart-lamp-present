@@ -36,7 +36,7 @@ export default function Home() {
   const [count, setCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-  const [showWaModal, setShowWaModal] = useState(false); // ✅ WAJIB
+  const [showWaModal, setShowWaModal] = useState(false);
 
   const phrases = [
     "Smart Lighting System",
@@ -552,10 +552,11 @@ export default function Home() {
             <Link to="/team">
               <button
                 whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-10 py-5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white"
+                whileT6p={{ scale: 0.95 }}
+                className="px-6 py-5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 text-white"
               >
-                Smart Team
+                Lampunyalse
+                <span className="ml-1 text-white">🛌</span>
               </button>
             </Link>
             <motion.a
@@ -1309,7 +1310,7 @@ export default function Home() {
             <span className="text-cyan-400 font-semibold drop-shadow-[0_0_10px_rgba(6,182,212,0.7)]">
               SmartLamp
             </span>{" "}
-            — Crafted by Kelompok 6 ⚡
+            — Crafted by Lampunyalse 🛌 ⚡
           </p>
         </motion.div>
       </footer>

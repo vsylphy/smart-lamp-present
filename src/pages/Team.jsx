@@ -199,7 +199,8 @@ export default function Team() {
             transition={{ delay: 1.8 }}
             className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent"
           >
-            Kelompok 6 – Smart Lamp
+            Lampunyalse
+            <span className="ml-2 text-white">🛌</span>
           </motion.h1>
 
           <motion.p
