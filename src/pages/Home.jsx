@@ -328,10 +328,10 @@ export default function Home() {
                   : "from-blue-600 via-purple-600 to-pink-600"
               } bg-clip-text text-transparent`}
             >
-              Smart
+              Lampu
             </span>
             <span className={darkMode ? "text-white" : "text-gray-900"}>
-              Lamp
+              nyalse
             </span>
           </motion.h1>
 
