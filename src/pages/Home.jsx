@@ -37,6 +37,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [showWaModal, setShowWaModal] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const phrases = [
     "Smart Lighting System",
@@ -517,7 +518,14 @@ export default function Home() {
             }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            SmartLamp<span className="ml-2 text-white">💡</span>
+            SmartLamp
+            <img
+              src="/2.png"
+              alt="SmartLamp Logo"
+              className={`inline-block ml-2 w-24 h-24 align-middle ${
+                darkMode ? "drop-shadow-[0_0_12px_#fbd94e]" : ""
+              }`}
+            />
           </motion.h1>
 
           <div className="h-20 flex items-center justify-center mb-6">
@@ -932,31 +940,111 @@ export default function Home() {
             ))}
           </div>
 
-          {/* logo arduino google assistan */}
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 mt-28 px-6">
-            <motion.img
-              src="/arduino-logo.png"
-              alt="Arduino"
-              className={`w-40 sm:w-52 md:w-64 lg:w-72 transition-all duration-300 ${
-                darkMode ? "" : "opacity-80 hover:opacity-100"
-              }`}
-              whileHover={{
-                scale: 1.1,
-                filter: "drop-shadow(0 0 15px #00e0ff)",
-              }}
-            />
-            <motion.img
-              src="/google-logo2.png"
-              alt="Google Assistant"
-              className={`w-40 sm:w-52 md:w-64 lg:w-72 transition-all duration-300 ${
-                darkMode ? "" : "opacity-80 hover:opacity-100"
-              }`}
-              whileHover={{
-                scale: 1.1,
-                filter: "drop-shadow(0 0 15px #4285F4)",
-              }}
-            />
+          <div className="flex flex-col items-center gap-12 mt-28 px-6">
+            <motion.div
+              className="flex flex-col items-center gap-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <motion.img
+                key={darkMode ? "dark-logo" : "light-logo"}
+                src={darkMode ? "/5.png" : "/3.png"}
+                alt="SL logo"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  filter: darkMode
+                    ? "drop-shadow(0 0 20px #fbd94eff)"
+                    : "drop-shadow(0 0 0px transparent)",
+                }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="w-48 sm:w-60 md:w-72 lg:w-80 transition-all duration-300"
+                whileHover={{
+                  scale: 1.1,
+                  filter: darkMode ? "drop-shadow(0 0 30px #fbd94eff)" : "none",
+                }}
+              />
+
+              <motion.button
+                onClick={() => setShowVideoModal(true)}
+                className={`px-8 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 backdrop-blur-sm ${
+                  darkMode
+                    ? "bg-white/10 text-white hover:bg-white/20 border border-white/20"
+                    : "bg-black/10 text-gray-800 hover:bg-black/20 border border-black/20"
+                }`}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>▶</span> Watch
+              </motion.button>
+            </motion.div>
+
+            <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20">
+              <motion.img
+                src="/arduino-logo.png"
+                alt="Arduino"
+                className={`w-40 sm:w-52 md:w-64 lg:w-72 transition-all duration-300 ${
+                  darkMode ? "" : "opacity-80 hover:opacity-100"
+                }`}
+                whileHover={{
+                  scale: 1.1,
+                  filter: "drop-shadow(0 0 15px #00e0ff)",
+                }}
+              />
+              <motion.img
+                src="/google-logo2.png"
+                alt="Google Assistant"
+                className={`w-40 sm:w-52 md:w-64 lg:w-72 transition-all duration-300 ${
+                  darkMode ? "" : "opacity-80 hover:opacity-100"
+                }`}
+                whileHover={{
+                  scale: 1.1,
+                  filter: "drop-shadow(0 0 15px #4285F4)",
+                }}
+              />
+            </div>
           </div>
+
+          {/* Video Modal */}
+          {showVideoModal && (
+            <motion.div
+              className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
+              onClick={() => setShowVideoModal(false)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.div
+                className={`relative max-w-4xl w-full rounded-2xl overflow-hidden ${
+                  darkMode ? "bg-gray-800" : "bg-white"
+                }`}
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setShowVideoModal(false)}
+                  className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                    darkMode
+                      ? "bg-white/20 hover:bg-white/30 text-white"
+                      : "bg-black/20 hover:bg-black/30 text-white"
+                  }`}
+                >
+                  ✕
+                </button>
+                <video
+                  src="/your-brand-animation.mp4"
+                  autoPlay
+                  loop
+                  controls
+                  className="w-full"
+                />
+              </motion.div>
+            </motion.div>
+          )}
         </motion.div>
       </section>
 
