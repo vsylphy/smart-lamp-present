@@ -1120,7 +1120,7 @@ export default function Home() {
                 {/* video logo LN */}
                 {introStep === 3 && (
                   <motion.video
-                    src="/upscaled-video.mp4"
+                    src="/upscaled-video (1).mp4"
                     autoPlay
                     controls
                     preload="none"
