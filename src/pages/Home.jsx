@@ -38,6 +38,29 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
   const [showWaModal, setShowWaModal] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [introStep, setIntroStep] = useState(0);
+  useEffect(() => {
+    if (!showVideoModal) return;
+
+    setIntroStep(0);
+    setLoadingProgress(0);
+    const loadingInterval = setInterval(() => {
+      setLoadingProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(loadingInterval);
+          setIntroStep(1);
+          setTimeout(() => setIntroStep(2), 600);
+          setTimeout(() => setIntroStep(3), 3000);
+
+          return 100;
+        }
+        return prev + 2;
+      });
+    }, 40);
+
+    return () => clearInterval(loadingInterval);
+  }, [showVideoModal]);
 
   const phrases = [
     "Smart Lighting System",
@@ -969,15 +992,24 @@ export default function Home() {
 
               <motion.button
                 onClick={() => setShowVideoModal(true)}
-                className={`px-8 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 flex items-center gap-2 backdrop-blur-sm ${
+                whileHover={{
+                  scale: 1.04,
+                  boxShadow: darkMode
+                    ? "0 0 18px rgba(253,224,71,0.35)"
+                    : "0 0 16px rgba(59,130,246,0.25)",
+                }}
+                whileTap={{ scale: 0.96 }}
+                className={`px-7 py-3 rounded-xl font-medium
+                flex items-center gap-2 transition-all
+                backdrop-blur-md border
+                ${
                   darkMode
-                    ? "bg-white/10 text-white hover:bg-white/20 border border-white/20"
-                    : "bg-black/10 text-gray-800 hover:bg-black/20 border border-black/20"
+                    ? "bg-white/10 text-white border-white/20"
+                    : "bg-black/5 text-gray-800 border-black/10"
                 }`}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
               >
-                <span>▶</span> Watch
+                <span className="text-base opacity-80">▶</span>
+                <span className="tracking-wide text-sm">Watch</span>
               </motion.button>
             </motion.div>
 
@@ -1007,41 +1039,96 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Video Modal */}
           {showVideoModal && (
             <motion.div
-              className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
-              onClick={() => setShowVideoModal(false)}
+              className="fixed inset-0 z-50 flex items-center justify-center
+    bg-black/90 backdrop-blur-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              onClick={() => {
+                setShowVideoModal(false);
+                setIntroStep(0);
+              }}
             >
               <motion.div
-                className={`relative max-w-4xl w-full rounded-2xl overflow-hidden ${
-                  darkMode ? "bg-gray-800" : "bg-white"
-                }`}
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-4xl h-[480px]
+                rounded-3xl overflow-hidden bg-black shadow-2xl"
+                initial={{ scale: 0.9 }}
+                animate={{ scale: 1 }}
               >
+                {/* Button Tutup */}
                 <button
-                  onClick={() => setShowVideoModal(false)}
-                  className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                    darkMode
-                      ? "bg-white/20 hover:bg-white/30 text-white"
-                      : "bg-black/20 hover:bg-black/30 text-white"
-                  }`}
+                  onClick={() => {
+                    setShowVideoModal(false);
+                    setIntroStep(0);
+                  }}
+                  className="absolute top-4 right-4 z-30 text-white/70 hover:text-white"
                 >
                   ✕
                 </button>
-                <video
-                  src="/your-brand-animation.mp4"
-                  autoPlay
-                  loop
-                  controls
-                  className="w-full"
-                />
+
+                {/* LOADING BAR */}
+                {introStep === 0 && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center z-20 gap-4">
+                    <div className="w-2/3 h-2 bg-white/10 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full ${
+                          darkMode
+                            ? "bg-gradient-to-r from-yellow-400 to-red-500"
+                            : "bg-gradient-to-r from-blue-500 to-purple-600"
+                        }`}
+                        animate={{ width: `${loadingProgress}%` }}
+                        transition={{ ease: "linear" }}
+                      />
+                    </div>
+                    <p className="text-xs tracking-widest text-gray-400">
+                      LOADING {loadingProgress}%
+                    </p>
+                  </div>
+                )}
+
+                {/* Logo LN*/}
+                {introStep >= 1 && introStep < 3 && (
+                  <motion.img
+                    src={darkMode ? "/5.png" : "/5.png"}
+                    className="absolute inset-0 m-auto w-52 z-40"
+                    initial={{ scale: 0.6, opacity: 0 }}
+                    animate={{
+                      scale: 1,
+                      opacity: 1,
+                      filter: darkMode
+                        ? "drop-shadow(0 0 35px gold)"
+                        : "drop-shadow(0 0 25px rgba(59,130,246,0.6))",
+                    }}
+                    transition={{ duration: 0.5 }}
+                  />
+                )}
+
+                {/* tulisan */}
+                {introStep === 2 && (
+                  <motion.p
+                    className="absolute bottom-24 w-full text-center z-20
+                    text-xl tracking-widest text-gray-300"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                  >
+                    Lampunyalse Introduction
+                  </motion.p>
+                )}
+
+                {/* video logo LN */}
+                {introStep === 3 && (
+                  <motion.video
+                    src="/upscaled-video.mp4"
+                    autoPlay
+                    controls
+                    className="w-full h-full object-cover"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6 }}
+                  />
+                )}
               </motion.div>
             </motion.div>
           )}
