@@ -1123,6 +1123,7 @@ export default function Home() {
                     src="/upscaled-video.mp4"
                     autoPlay
                     controls
+                    preload="none"
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
