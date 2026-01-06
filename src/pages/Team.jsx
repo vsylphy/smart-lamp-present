@@ -200,7 +200,11 @@ export default function Team() {
             className="text-5xl font-bold bg-gradient-to-r from-cyan-400 to-indigo-500 bg-clip-text text-transparent"
           >
             Lampunyalse
-            <span className="ml-2 text-white">🛌</span>
+            <img
+              src="/2.png"
+              alt="SmartLamp Logo"
+              className="inline-block ml-1 w-14 h-14 align-middle"
+            />
           </motion.h1>
 
           <motion.p

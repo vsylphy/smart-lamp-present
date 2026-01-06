@@ -1486,7 +1486,14 @@ export default function Home() {
             <span className="text-cyan-400 font-semibold drop-shadow-[0_0_10px_rgba(6,182,212,0.7)]">
               SmartLamp
             </span>{" "}
-            — Crafted by Lampunyalse 🛌
+            — Crafted by Lampunyalse
+            <img
+              src="/2.png"
+              alt="SmartLamp Logo"
+              className={`inline-block w-8 h-8 align-middle ${
+                darkMode ? "drop-shadow-[0_0_12px_#fbd94e]" : ""
+              }`}
+            />
           </p>
         </motion.div>
       </footer>
