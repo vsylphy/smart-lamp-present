@@ -30,7 +30,7 @@ const members = [
     name: "Muhammad Fauzan Firmansyah",
     nim: "25552011312",
     role: "Hardware Engineer",
-    desc: "Merancang dan merakit komponen smart lamp.",
+    desc: "Merancang dan merakit komponen smart lamp as brand Lampunyalse.",
     img: "/Team/anggota2.jpeg",
   },
   {
@@ -43,8 +43,8 @@ const members = [
   {
     name: "Radhi Nur Rubiansyah",
     nim: "25552011306",
-    role: "Smart Lamp Web Engineer",
-    desc: "Merancang tampilan antarmuka dan pengalaman pengguna.",
+    role: "Front-end Engineer",
+    desc: "Merancang tampilan antarmuka dan pengalaman pengguna Web Lampunyalse.",
     img: "/Team/anggota4.jpeg",
   },
   {
