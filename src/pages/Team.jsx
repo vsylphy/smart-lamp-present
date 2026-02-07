@@ -137,10 +137,10 @@ export default function Team() {
               transition={{ delay: 0.5 }}
               className="text-2xl font-bold text-cyan-400 mb-4"
             >
-              Smart Lamp Team
+              NyalseTeam
             </motion.h2>
 
-            <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden">
+            <div className="w-64 h-1 bg-white/10 rounded-full overflow-hidden mt-2">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
